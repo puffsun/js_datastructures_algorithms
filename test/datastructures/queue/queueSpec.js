@@ -31,4 +31,12 @@ describe("Test queue", function() {
         expect(queue.dequeue()).to.equal("b");
         expect(queue.dequeue()).to.equal("c");
     });
+
+    it("should be empty after clearing", function() {
+        var q = new Queue();
+        q.enqueue("A");
+        q.clear();
+        expect(q.empty()).to.equal(true);
+        expect(q.size()).to.equal(0);
+    });
 });

@@ -24,4 +24,8 @@ Queue.prototype.front = function() {
     return this.items[0];
 };
 
+Queue.prototype.clear = function() {
+    this.items = [];
+};
+
 module.exports = Queue;
