@@ -17,7 +17,7 @@ Stack.prototype.push = function(e) {
 };
 
 Stack.prototype.pop = function() {
-    this.items.pop();
+    return this.items.pop();
 };
 
 Stack.prototype.peek = function() {

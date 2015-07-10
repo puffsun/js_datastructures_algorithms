@@ -19,7 +19,8 @@ describe("Stack tests", function() {
         expect(s1.size()).to.equal(1);
         expect(s1.peek()).to.equal("a");
 
-        s1.pop();
+        var e = s1.pop();
+        expect(e).to.equal("a");
         expect(s1.empty()).to.equal(true);
         expect(s1.size()).to.equal(0);
         expect(s1.peek()).to.equal(undefined);
