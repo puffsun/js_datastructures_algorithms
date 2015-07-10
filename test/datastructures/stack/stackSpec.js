@@ -25,5 +25,16 @@ describe("Stack tests", function() {
         expect(s1.size()).to.equal(0);
         expect(s1.peek()).to.equal(undefined);
     });
+
+    it("should be FILO as expected", function() {
+        var s = new Stack();
+        s.push("A");
+        s.push("B");
+        s.push("C");
+        expect(s.size()).to.equal(3);
+        expect(s.pop()).to.equal("C");
+        expect(s.pop()).to.equal("B");
+        expect(s.pop()).to.equal("A");
+    });
 });
 
