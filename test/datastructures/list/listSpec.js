@@ -16,6 +16,7 @@ describe("Test Linked List", function() {
     it("should be empty with newly created linked list", function() {
         expect(list.empty()).to.equal(true);
         expect(list.size()).to.equal(0);
+        expect(list.getHead()).to.equal(null);
     });
 
     it("should not empty after appending elements", function() {
@@ -23,10 +24,12 @@ describe("Test Linked List", function() {
         expect(list.empty()).to.equal(false);
         expect(list.size()).to.equal(1);
         expect(list.toString()).to.equal("a");
+        expect(list.getHead().element).to.equal("a");
 
         list.append("b");
         expect(list.size()).to.equal(2);
         expect(list.toString()).to.equal("a->b");
+        expect(list.getHead().element).to.equal("a");
 
         expect(list.indexOf("a")).to.equal(0);
         expect(list.indexOf("b")).to.equal(1);
@@ -45,6 +48,7 @@ describe("Test Linked List", function() {
         expect(list.empty()).to.equal(false);
         expect(list.size()).to.equal(1);
         expect(list.toString()).to.equal("a");
+        expect(list.getHead().element).to.equal("a");
 
         result = list.insert(1, "b");
         expect(result).to.equal(true);
@@ -55,6 +59,7 @@ describe("Test Linked List", function() {
         expect(result).to.equal(true);
         expect(list.size()).to.equal(3);
         expect(list.toString()).to.equal("c->a->b");
+        expect(list.getHead().element).to.equal("c");
     });
 
     it("should remove element from list", function() {

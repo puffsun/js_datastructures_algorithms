@@ -10,6 +10,10 @@ function LinkedList() {
     this.head = null;
 }
 
+LinkedList.prototype.getHead = function() {
+    return this.head;
+};
+
 LinkedList.prototype.empty = function() {
     return this.length === 0;
 };
