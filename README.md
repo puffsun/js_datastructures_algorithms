@@ -1,4 +1,4 @@
-## Data Structures and Algorithms in JavaScript
+## Data Structures and Algorithms with JavaScript
 
 ### Setup
 * Install [Node.js](https://nodejs.org/)
