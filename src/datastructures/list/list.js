@@ -34,10 +34,48 @@ LinkedList.prototype.append = function(element) {
     this.length += 1;
 };
 
-LinkedList.prototype.insert = function(position, element) {};
+LinkedList.prototype.insert = function(position, element) {
+    if (position < 0 || position > this.length) {
+        return false;
+    }
+
+    var node = new Node(element),
+        currentNode = this.head,
+        prevNode,
+        index = 0;
+
+    if (position === 0) {
+        node.next = currentNode;
+        this.head = node;
+    } else {
+        while (index++ < position) {
+            prevNode = currentNode;
+            currentNode = currentNode.next;
+        }
+        node.next = currentNode;
+        prevNode.next = node;
+    }
+
+    this.length += 1;
+    return true;
+};
+
 LinkedList.prototype.removeAt = function(position) {};
 LinkedList.prototype.remove = function(element) {};
-LinkedList.prototype.indexOf = function(element) {};
+
+LinkedList.prototype.indexOf = function(element) {
+    var index = 0,
+        currentNode = this.head;
+
+    while (currentNode) {
+        if (element === currentNode.element) {
+            return index;
+        }
+        index += 1;
+        currentNode = currentNode.next;
+    }
+    return -1;
+};
 
 LinkedList.prototype.toString = function(element) {
     var tmpNode = this.head,
