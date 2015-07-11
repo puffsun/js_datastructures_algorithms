@@ -60,8 +60,36 @@ LinkedList.prototype.insert = function(position, element) {
     return true;
 };
 
-LinkedList.prototype.removeAt = function(position) {};
-LinkedList.prototype.remove = function(element) {};
+LinkedList.prototype.removeAt = function(position) {
+    if (position >= this.length) {
+        return null;
+    }
+
+    var currentNode = this.head,
+        prevNode,
+        index = 0;
+
+    if (position === 0) {
+        this.head = this.head.next;
+    } else {
+        while (index++ < position) {
+            prevNode = currentNode;
+            currentNode = currentNode.next;
+        }
+        prevNode.next = currentNode.next;
+    }
+
+    this.length -= 1;
+    return currentNode.element;
+};
+
+LinkedList.prototype.remove = function(element) {
+    var index = this.indexOf(element);
+    if (index >= 0) {
+        return this.removeAt(index);
+    }
+    return null;
+};
 
 LinkedList.prototype.indexOf = function(element) {
     var index = 0,

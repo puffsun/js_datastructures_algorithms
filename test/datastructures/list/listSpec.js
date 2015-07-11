@@ -1,7 +1,10 @@
 "use strict";
 
 var LinkedList = require("../../../src/datastructures/list/list"),
-    expect = require("chai").expect;
+    chai = require("chai"),
+    expect = chai.expect;
+
+chai.config.includeStack = true;
 
 describe("Test Linked List", function() {
     var list;
@@ -52,5 +55,49 @@ describe("Test Linked List", function() {
         expect(result).to.equal(true);
         expect(list.size()).to.equal(3);
         expect(list.toString()).to.equal("c->a->b");
+    });
+
+    it("should remove element from list", function() {
+        var element = list.removeAt(0);
+        expect(element).to.equal(null);
+
+        expect(list.removeAt(1)).to.equal(null);
+
+        list.append("a");
+        list.append("b");
+        list.append("c");
+        list.append("d");
+        expect(list.toString()).to.equal("a->b->c->d");
+        expect(list.size()).to.equal(4);
+
+        element = list.removeAt(0);
+        expect(element).to.equal("a");
+        expect(list.size()).to.equal(3);
+        expect(list.toString()).to.equal("b->c->d");
+
+        element = list.removeAt(1);
+        expect(element).to.equal("c");
+        expect(list.size()).to.equal(2);
+        expect(list.toString()).to.equal("b->d");
+
+        element = list.remove("d");
+        expect(element).to.equal("d");
+        expect(list.size()).to.equal(1);
+        expect(list.toString()).to.equal("b");
+
+        element = list.remove("d");
+        expect(element).to.equal(null);
+        expect(list.size()).to.equal(1);
+        expect(list.toString()).to.equal("b");
+
+        element = list.remove("b");
+        expect(element).to.equal("b");
+        expect(list.size()).to.equal(0);
+        expect(list.toString()).to.equal("");
+
+        element = list.remove("b");
+        expect(element).to.equal(null);
+        expect(list.size()).to.equal(0);
+        expect(list.toString()).to.equal("");
     });
 });
