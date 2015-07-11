@@ -3,16 +3,20 @@
 var Queue = require("../../../src/datastructures/queue/queue.js"),
     expect = require("chai").expect;
 
-describe("Test queue", function() {
+describe("Test Queue", function() {
+    var queue;
+
+    beforeEach(function() {
+        queue = new Queue();
+    });
+
     it("should be empty with newly created queue", function() {
-        var queue = new Queue();
         expect(queue.empty()).to.equal(true);
         expect(queue.size()).to.equal(0);
         expect(queue.dequeue()).to.equal(undefined);
     });
 
     it("should be FIFO as expected", function() {
-        var queue = new Queue();
         queue.enqueue("a");
         expect(queue.empty()).to.equal(false);
         expect(queue.size()).to.equal(1);
@@ -33,10 +37,9 @@ describe("Test queue", function() {
     });
 
     it("should be empty after clearing", function() {
-        var q = new Queue();
-        q.enqueue("A");
-        q.clear();
-        expect(q.empty()).to.equal(true);
-        expect(q.size()).to.equal(0);
+        queue.enqueue("A");
+        queue.clear();
+        expect(queue.empty()).to.equal(true);
+        expect(queue.size()).to.equal(0);
     });
 });

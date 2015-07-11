@@ -5,36 +5,37 @@ var Stack = require("../../../src/datastructures/stack/stack"),
     expect = require("chai").expect;
 
 describe("Stack tests", function() {
+    var stack;
+    beforeEach(function() {
+        stack = new Stack();
+    });
     it("should be empty for a newly created Stack", function() {
-        var s1 = new Stack();
-        expect(s1.empty()).to.equal(true);
-        expect(s1.size()).to.equal(0);
-        expect(s1.peek()).to.equal(undefined);
+        expect(stack.empty()).to.equal(true);
+        expect(stack.size()).to.equal(0);
+        expect(stack.peek()).to.equal(undefined);
     });
 
     it("should not empty with elements", function() {
-        var s1 = new Stack();
-        s1.push("a");
-        expect(s1.empty()).to.equal(false);
-        expect(s1.size()).to.equal(1);
-        expect(s1.peek()).to.equal("a");
+        stack.push("a");
+        expect(stack.empty()).to.equal(false);
+        expect(stack.size()).to.equal(1);
+        expect(stack.peek()).to.equal("a");
 
-        var e = s1.pop();
+        var e = stack.pop();
         expect(e).to.equal("a");
-        expect(s1.empty()).to.equal(true);
-        expect(s1.size()).to.equal(0);
-        expect(s1.peek()).to.equal(undefined);
+        expect(stack.empty()).to.equal(true);
+        expect(stack.size()).to.equal(0);
+        expect(stack.peek()).to.equal(undefined);
     });
 
     it("should be FILO as expected", function() {
-        var s = new Stack();
-        s.push("A");
-        s.push("B");
-        s.push("C");
-        expect(s.size()).to.equal(3);
-        expect(s.pop()).to.equal("C");
-        expect(s.pop()).to.equal("B");
-        expect(s.pop()).to.equal("A");
+        stack.push("A");
+        stack.push("B");
+        stack.push("C");
+        expect(stack.size()).to.equal(3);
+        expect(stack.pop()).to.equal("C");
+        expect(stack.pop()).to.equal("B");
+        expect(stack.pop()).to.equal("A");
     });
 });
 
