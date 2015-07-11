@@ -24,10 +24,10 @@ describe("Test Priority Queue", function() {
         pq.enqueue("a");
         expect(pq.empty()).to.equal(false);
         expect(pq.size()).to.equal(1);
-        expect(pq.front()).to.equal("a");
+        expect(pq.front().element).to.equal("a");
 
         var e = pq.dequeue();
-        expect(e).to.equal("a");
+        expect(e.element).to.equal("a");
         expect(pq.empty()).to.equal(true);
         expect(pq.size()).to.equal(0);
 
@@ -35,9 +35,9 @@ describe("Test Priority Queue", function() {
         pq.enqueue("b");
         pq.enqueue("c");
         expect(pq.size()).to.equal(3);
-        expect(pq.dequeue()).to.equal("a");
-        expect(pq.dequeue()).to.equal("b");
-        expect(pq.dequeue()).to.equal("c");
+        expect(pq.dequeue().element).to.equal("a");
+        expect(pq.dequeue().element).to.equal("b");
+        expect(pq.dequeue().element).to.equal("c");
     });
 
     it("should be empty after clearing", function() {
@@ -48,5 +48,14 @@ describe("Test Priority Queue", function() {
     });
 
     it("should leverage priority", function() {
+        pq.enqueue("a", 10);
+        pq.enqueue("b", 20);
+        pq.enqueue("b", 20);
+        pq.enqueue("c", 30);
+
+        expect(pq.dequeue().element).to.equal("c");
+        expect(pq.dequeue().element).to.equal("b");
+        expect(pq.dequeue().element).to.equal("b");
+        expect(pq.dequeue().element).to.equal("a");
     });
 });
