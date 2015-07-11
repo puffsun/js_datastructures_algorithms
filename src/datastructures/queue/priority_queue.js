@@ -35,7 +35,6 @@ function PriorityQueue() {
                 this.items.push(qe);
             }
         }
-        console.log(this.items);
     };
 }
 
