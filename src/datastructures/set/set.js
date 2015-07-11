@@ -42,4 +42,63 @@ MySet.prototype.values = function() {
     return Object.keys(this.items);
 };
 
+MySet.prototype.union = function(otherSet) {
+    var resultSet = new MySet(),
+        values = this.values(),
+        i, len;
+
+    for (i = 0, len = values.length; i < len; i++) {
+        resultSet.add(values[i]);
+    }
+
+    values = otherSet.values();
+    for (i = 0, len = values.length; i < len; i++) {
+        resultSet.add(values[i]);
+    }
+
+    return resultSet;
+};
+
+MySet.prototype.intersect = function(otherSet) {
+    var resultSet = new MySet(),
+        values = this.values(),
+        i, len;
+
+    for (i = 0, len = values.length; i < len; i++) {
+        if (otherSet.has(values[i])) {
+            resultSet.add(values[i]);
+        }
+    }
+
+    return resultSet;
+};
+
+MySet.prototype.diff = function(otherSet) {
+    var resultSet = new MySet(),
+        values = this.values(),
+        i, len;
+
+    for (i = 0, len = values.length; i < len; i++) {
+        if (!otherSet.has(values[i])) {
+            resultSet.add(values[i]);
+        }
+    }
+    return resultSet;
+};
+
+MySet.prototype.subset = function(otherSet) {
+    if (this.size() > otherSet.size()) {
+        return false;
+    } else {
+        var values = this.values(),
+            i, len;
+        for (i = 0, len = values.length; i < len; i++) {
+            if (!otherSet.has(values[i])) {
+                return false;
+            }
+        }
+        return true;
+    }
+};
+
 module.exports = MySet;
