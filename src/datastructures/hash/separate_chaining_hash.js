@@ -1,23 +1,11 @@
 "use strict";
 
-var LinkedList = require("../list/list");
+var LinkedList = require("../list/list"),
+    ValuePair = require("./value_pair");
 
 function Hash() {
     this.table = [];
     this.length = 0;
-}
-
-function ValuePair(key, value) {
-    this.key = key;
-    this.value = value;
-
-    this.toString = function() {
-        return '[' + this.key + ' - ' + this.value + ']';
-    };
-
-    this.keyEquals = function(other) {
-        return other.key === this.key;
-    };
 }
 
 function findNodeIndexInList(list, node) {
