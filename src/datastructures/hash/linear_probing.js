@@ -7,7 +7,7 @@ function hashCode(key) {
         i, len;
 
     for (i = 0, len = key.length; i < len; i++) {
-        hash = hash*33 + key.charCodeAt(i);
+        hash = hash * 33 + key.charCodeAt(i);
     }
     return hash % 1013;
 }
