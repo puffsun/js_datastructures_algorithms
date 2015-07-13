@@ -4,7 +4,7 @@
 var Stack = require("../../../src/datastructures/stack/stack"),
     expect = require("chai").expect;
 
-describe("Stack tests", function() {
+describe("Test Stack", function() {
     var stack;
     beforeEach(function() {
         stack = new Stack();
