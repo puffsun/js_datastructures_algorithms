@@ -65,60 +65,60 @@ Graph = (function() {
     on it for graph algorithms' needs. **Undefined if node id already exists**,
     as to avoid accidental overrides.
      */
-    if (!this._nodes[id]) {
-      this.nodeSize++;
-      return this._nodes[id] = {
-        _outEdges: {},
-        _inEdges: {}
-      };
-    }
-  };
+        if (!this._nodes[id]) {
+            this.nodeSize++;
+            return this._nodes[id] = {
+                _outEdges: {},
+                _inEdges: {}
+            };
+        }
+    };
 
-  Graph.prototype.getNode = function(id) {
+    Graph.prototype.getNode = function(id) {
 
     /*
     _Returns:_ the node object. Feel free to attach additional custom properties
     on it for graph algorithms' needs.
      */
-    return this._nodes[id];
-  };
+        return this._nodes[id];
+    };
 
-  Graph.prototype.removeNode = function(id) {
+    Graph.prototype.removeNode = function(id) {
 
     /*
     _Returns:_ the node object removed, or undefined if it didn't exist in the
     first place.
      */
-    var inEdgeId, nodeToRemove, outEdgeId, ref, ref1;
-    nodeToRemove = this._nodes[id];
-    if (!nodeToRemove) {
-      return;
-    } else {
-      ref = nodeToRemove._outEdges;
-      for (outEdgeId in ref) {
-        if (!hasProp.call(ref, outEdgeId)) {
-            continue;
+        var inEdgeId, nodeToRemove, outEdgeId, ref, ref1;
+        nodeToRemove = this._nodes[id];
+        if (!nodeToRemove) {
+            return;
+        } else {
+            ref = nodeToRemove._outEdges;
+            for (outEdgeId in ref) {
+                if (!hasProp.call(ref, outEdgeId)) {
+                    continue;
+                }
+                this.removeEdge(id, outEdgeId);
+            }
+            ref1 = nodeToRemove._inEdges;
+            for (inEdgeId in ref1) {
+                if (!hasProp.call(ref1, inEdgeId)) {
+                    continue;
+                }
+                this.removeEdge(inEdgeId, id);
+            }
+            this.nodeSize--;
+            delete this._nodes[id];
         }
-        this.removeEdge(id, outEdgeId);
-      }
-      ref1 = nodeToRemove._inEdges;
-      for (inEdgeId in ref1) {
-        if (!hasProp.call(ref1, inEdgeId)) {
-            continue;
-        }
-        this.removeEdge(inEdgeId, id);
-      }
-      this.nodeSize--;
-      delete this._nodes[id];
-    }
-    return nodeToRemove;
-  };
+        return nodeToRemove;
+    };
 
-  Graph.prototype.addEdge = function(fromId, toId, weight) {
-    var edgeToAdd, fromNode, toNode;
-    if (weight === null) {
-      weight = 1;
-    }
+    Graph.prototype.addEdge = function(fromId, toId, weight) {
+        var edgeToAdd, fromNode, toNode;
+        if (weight === null) {
+            weight = 1;
+        }
 
     /*
     `fromId` and `toId` are the node id specified when it was created using
@@ -131,96 +131,96 @@ Graph = (function() {
     of id `fromId` or `toId` aren't found, or if an edge already exists between
     the two nodes.
      */
-    if (this.getEdge(fromId, toId)) {
-      return;
-    }
-    fromNode = this._nodes[fromId];
-    toNode = this._nodes[toId];
-    if (!fromNode || !toNode) {
-      return;
-    }
-    edgeToAdd = {
-      weight: weight
+        if (this.getEdge(fromId, toId)) {
+            return;
+        }
+        fromNode = this._nodes[fromId];
+        toNode = this._nodes[toId];
+        if (!fromNode || !toNode) {
+            return;
+        }
+        edgeToAdd = {
+            weight: weight
+        };
+        fromNode._outEdges[toId] = edgeToAdd;
+        toNode._inEdges[fromId] = edgeToAdd;
+        this.edgeSize++;
+        return edgeToAdd;
     };
-    fromNode._outEdges[toId] = edgeToAdd;
-    toNode._inEdges[fromId] = edgeToAdd;
-    this.edgeSize++;
-    return edgeToAdd;
-  };
 
-  Graph.prototype.getEdge = function(fromId, toId) {
+    Graph.prototype.getEdge = function(fromId, toId) {
 
     /*
     _Returns:_ the edge object, or undefined if the nodes of id `fromId` or
     `toId` aren't found.
      */
-    var fromNode, toNode;
-    fromNode = this._nodes[fromId];
-    toNode = this._nodes[toId];
-    if (!fromNode || !toNode) {
+        var fromNode, toNode;
+        fromNode = this._nodes[fromId];
+        toNode = this._nodes[toId];
+        if (!fromNode || !toNode) {
 
-    } else {
-      return fromNode._outEdges[toId];
-    }
-  };
+        } else {
+            return fromNode._outEdges[toId];
+        }
+    };
 
-  Graph.prototype.removeEdge = function(fromId, toId) {
+    Graph.prototype.removeEdge = function(fromId, toId) {
 
     /*
     _Returns:_ the edge object removed, or undefined of edge wasn't found.
      */
-    var edgeToDelete, fromNode, toNode;
-    fromNode = this._nodes[fromId];
-    toNode = this._nodes[toId];
-    edgeToDelete = this.getEdge(fromId, toId);
-    if (!edgeToDelete) {
-      return;
-    }
-    delete fromNode._outEdges[toId];
-    delete toNode._inEdges[fromId];
-    this.edgeSize--;
-    return edgeToDelete;
-  };
+        var edgeToDelete, fromNode, toNode;
+        fromNode = this._nodes[fromId];
+        toNode = this._nodes[toId];
+        edgeToDelete = this.getEdge(fromId, toId);
+        if (!edgeToDelete) {
+            return;
+        }
+        delete fromNode._outEdges[toId];
+        delete toNode._inEdges[fromId];
+        this.edgeSize--;
+        return edgeToDelete;
+    };
 
-  Graph.prototype.getInEdgesOf = function(nodeId) {
+    Graph.prototype.getInEdgesOf = function(nodeId) {
 
     /*
     _Returns:_ an array of edge objects that are directed toward the node, or
     empty array if no such edge or node exists.
      */
-    var fromId, inEdges, ref, toNode;
-    toNode = this._nodes[nodeId];
-    inEdges = [];
-    ref = toNode !== null ? toNode._inEdges : void 0;
-    for (fromId in ref) {
-      if (!hasProp.call(ref, fromId)) {
-          continue;
-      }
-      inEdges.push(this.getEdge(fromId, nodeId));
-    }
-    return inEdges;
-  };
+        var fromId, inEdges, ref, toNode;
+        toNode = this._nodes[nodeId];
+        inEdges = [];
+        ref = toNode !== null ? toNode._inEdges : void 0;
+        for (fromId in ref) {
+            if (!hasProp.call(ref, fromId)) {
+                continue;
+            }
+            inEdges.push(this.getEdge(fromId, nodeId));
+        }
+        return inEdges;
+    };
 
-  Graph.prototype.getOutEdgesOf = function(nodeId) {
+    Graph.prototype.getOutEdgesOf = function(nodeId) {
 
     /*
     _Returns:_ an array of edge objects that go out of the node, or empty array
     if no such edge or node exists.
      */
-    var fromNode, outEdges, ref, toId;
-    fromNode = this._nodes[nodeId];
-    outEdges = [];
-    ref = fromNode !== null ? fromNode._outEdges : void 0;
-    for (toId in ref) {
-      if (!hasProp.call(ref, toId)) {
-          continue;
-      }
-      outEdges.push(this.getEdge(nodeId, toId));
-    }
-    return outEdges;
-  };
+        var fromNode, outEdges, ref, toId;
+        fromNode = this._nodes[nodeId];
+        outEdges = [];
+        ref = fromNode !== null ? fromNode._outEdges : void 0;
+        for (toId in ref) {
+            if (!hasProp.call(ref, toId)) {
+                continue;
+            }
+            outEdges.push(this.getEdge(nodeId, toId));
+        }
+        return outEdges;
+    };
 
-  Graph.prototype.getAllEdgesOf = function(nodeId) {
+    Graph.prototype.getAllEdgesOf = function(nodeId) {
 
     /*
     **Note:** not the same as concatenating `getInEdgesOf()` and
@@ -231,24 +231,24 @@ Graph = (function() {
     outgoing or coming. Duplicate edge created by self-pointing nodes are
     removed. Only one copy stays. Empty array if node has no edge.
      */
-    var i, inEdges, j, outEdges, ref, ref1, selfEdge;
-    inEdges = this.getInEdgesOf(nodeId);
-    outEdges = this.getOutEdgesOf(nodeId);
-    if (inEdges.length === 0) {
-      return outEdges;
-    }
-    selfEdge = this.getEdge(nodeId, nodeId);
-    for (i = j = 0, ref = inEdges.length; 0 <= ref ? j < ref : j > ref; i = 0 <= ref ? ++j : --j) {
-      if (inEdges[i] === selfEdge) {
-        ref1 = [inEdges[inEdges.length - 1], inEdges[i]], inEdges[i] = ref1[0], inEdges[inEdges.length - 1] = ref1[1];
-        inEdges.pop();
-        break;
-      }
-    }
-    return inEdges.concat(outEdges);
-  };
+        var i, inEdges, j, outEdges, ref, ref1, selfEdge;
+        inEdges = this.getInEdgesOf(nodeId);
+        outEdges = this.getOutEdgesOf(nodeId);
+        if (inEdges.length === 0) {
+            return outEdges;
+        }
+        selfEdge = this.getEdge(nodeId, nodeId);
+        for (i = j = 0, ref = inEdges.length; 0 <= ref ? j < ref : j > ref; i = 0 <= ref ? ++j : --j) {
+            if (inEdges[i] === selfEdge) {
+                ref1 = [inEdges[inEdges.length - 1], inEdges[i]], inEdges[i] = ref1[0], inEdges[inEdges.length - 1] = ref1[1];
+                inEdges.pop();
+                break;
+            }
+        }
+        return inEdges.concat(outEdges);
+    };
 
-  Graph.prototype.forEachNode = function(operation) {
+    Graph.prototype.forEachNode = function(operation) {
 
     /*
     Traverse through the graph in an arbitrary manner, visiting each node once.
@@ -256,18 +256,18 @@ Graph = (function() {
 
     _Returns:_ undefined.
      */
-    var nodeId, nodeObject, ref;
-    ref = this._nodes;
-    for (nodeId in ref) {
-      if (!hasProp.call(ref, nodeId)) {
-          continue;
-      }
-      nodeObject = ref[nodeId];
-      operation(nodeObject, nodeId);
-    }
-  };
+        var nodeId, nodeObject, ref;
+        ref = this._nodes;
+        for (nodeId in ref) {
+            if (!hasProp.call(ref, nodeId)) {
+                continue;
+            }
+            nodeObject = ref[nodeId];
+            operation(nodeObject, nodeId);
+        }
+    };
 
-  Graph.prototype.forEachEdge = function(operation) {
+    Graph.prototype.forEachEdge = function(operation) {
 
     /*
     Traverse through the graph in an arbitrary manner, visiting each edge once.
@@ -275,25 +275,25 @@ Graph = (function() {
 
     _Returns:_ undefined.
      */
-    var edgeObject, nodeId, nodeObject, ref, ref1, toId;
-    ref = this._nodes;
-    for (nodeId in ref) {
-      if (!hasProp.call(ref, nodeId)) {
-          continue;
-      }
-      nodeObject = ref[nodeId];
-      ref1 = nodeObject._outEdges;
-      for (toId in ref1) {
-        if (!hasProp.call(ref1, toId)) {
-            continue;
+        var edgeObject, nodeId, nodeObject, ref, ref1, toId;
+        ref = this._nodes;
+        for (nodeId in ref) {
+            if (!hasProp.call(ref, nodeId)) {
+                continue;
+            }
+            nodeObject = ref[nodeId];
+            ref1 = nodeObject._outEdges;
+            for (toId in ref1) {
+                if (!hasProp.call(ref1, toId)) {
+                    continue;
+                }
+                edgeObject = ref1[toId];
+                operation(edgeObject);
+            }
         }
-        edgeObject = ref1[toId];
-        operation(edgeObject);
-      }
-    }
-  };
+    };
 
-  return Graph;
+    return Graph;
 
 })();
 
