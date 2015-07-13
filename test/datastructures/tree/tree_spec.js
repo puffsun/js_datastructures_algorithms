@@ -72,4 +72,50 @@ describe("Test Binary Search Tree", function() {
         expect(bst.search("d")).to.equal(false);
         expect(bst.size()).to.equal(0);
     });
+
+    it("should find the min/max node", function() {
+        expect(bst.min()).to.equal(null);
+        expect(bst.max()).to.equal(null);
+
+        bst.insert("c");
+        expect(bst.min()).to.equal("c");
+        expect(bst.max()).to.equal("c");
+
+        bst.insert("b");
+        bst.insert("d");
+
+        expect(bst.min()).to.equal("b");
+        expect(bst.max()).to.equal("d");
+    });
+
+    it("should return height of the tree", function() {
+        expect(bst.height()).to.equal(-1);
+
+        bst.insert("c");
+        // one node of tree has height of 1
+        expect(bst.height()).to.equal(0);
+
+        bst.insert("b");
+        expect(bst.height()).to.equal(1);
+        bst.insert("d");
+        expect(bst.height()).to.equal(1);
+
+        bst.insert("a");
+        expect(bst.height()).to.equal(2);
+        bst.insert("e");
+        expect(bst.height()).to.equal(2);
+    });
+
+    it("should return if the given tree is BST", function() {
+        expect(bst.isBST()).to.equal(true);
+
+        bst.insert("c");
+        expect(bst.isBST()).to.equal(true);
+
+        bst.insert("b");
+        expect(bst.isBST()).to.equal(true);
+
+        bst.insert("d");
+        expect(bst.isBST()).to.equal(true);
+    });
 });

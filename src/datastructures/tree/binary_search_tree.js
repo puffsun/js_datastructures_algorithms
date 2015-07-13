@@ -89,6 +89,58 @@ function findMinNode(node) {
     return node;
 }
 
+function minNode(node) {
+    if (!node) {
+        return null;
+    }
+
+    while (node && node.left !== null) {
+        node = node.left;
+    }
+    return node.key;
+}
+
+function maxNode(node) {
+    if (!node) {
+        return null;
+    }
+
+    while (node && node.right !== null) {
+        node = node.right;
+    }
+    return node.key;
+}
+
+function nodeHeight(node) {
+    if (node === null) {
+        return -1;
+    }
+    return 1 + Math.max(nodeHeight(node.left), nodeHeight(node.right));
+}
+
+
+
+// is the tree rooted at x a BST with all keys strictly
+// between min and max
+// (if min or max is null, treat as empty constraint)
+// Credit: Bob Dondero's elegant solution
+function isBinarySearchTree(node, min, max) {
+    if (node === null) {
+        return true;
+    }
+
+    if (min !== null && node.key < min) {
+        return false;
+    }
+
+    if (max !== null && node.key > max) {
+        return false;
+    }
+
+    return isBinarySearchTree(node.left, min, node.key) &&
+        isBinarySearchTree(node.right, node.key, max);
+}
+
 BinarySearchTree.prototype.size = function() {
     return sizeOfNode(this.root);
 };
@@ -117,16 +169,28 @@ BinarySearchTree.prototype.preOrderTraverse = function() {};
 
 BinarySearchTree.prototype.postOrderTraverse = function() {};
 
-BinarySearchTree.prototype.min = function() {};
+BinarySearchTree.prototype.min = function() {
+    return minNode(this.root);
+};
 
-BinarySearchTree.prototype.max = function() {};
+BinarySearchTree.prototype.max = function() {
+    return maxNode(this.root);
+};
 
 BinarySearchTree.prototype.remove = function(key) {
     this.root = removeNode(this.root, key);
 };
 
-BinarySearchTree.prototype.height = function() {};
+BinarySearchTree.prototype.height = function() {
+    return nodeHeight(this.root);
+};
 
-BinarySearchTree.prototype.isBST = function() {};
+
+// does this binary tree satisfy symmetric order?
+// Note: this test also ensures that data structure is
+// a binary tree since order is strict
+BinarySearchTree.prototype.isBST = function() {
+    return isBinarySearchTree(this.root, null, null);
+};
 
 module.exports = BinarySearchTree;
