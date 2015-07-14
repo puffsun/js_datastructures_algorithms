@@ -17,4 +17,8 @@
 * [Graph](https://github.com/puffsun/js_datastructures_algorithms/tree/master/src/datastructures/graph)
 
 ### Algorithms
-
+* [Sorting](https://github.com/puffsun/js_datastructures_algorithms/tree/master/src/algorithms)
+    * Bubble sort
+    * Selection sort
+    * Insertion sort
+    * Merge sort
