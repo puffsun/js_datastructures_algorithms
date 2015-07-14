@@ -25,4 +25,5 @@ Computer science data structures and algorithms with plain JavaScript, testing w
     * Selection sort
     * Insertion sort
     * Merge sort
+    * Quick sort
 
