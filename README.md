@@ -14,6 +14,7 @@
 * [Set](https://github.com/puffsun/js_datastructures_algorithms/tree/master/src/datastructures/set)
 * [Hash](https://github.com/puffsun/js_datastructures_algorithms/tree/master/src/datastructures/hash)
 * [Tree](https://github.com/puffsun/js_datastructures_algorithms/tree/master/src/datastructures/tree)
+* [Graph](https://github.com/puffsun/js_datastructures_algorithms/tree/master/src/datastructures/graph)
 
 ### Algorithms
 
