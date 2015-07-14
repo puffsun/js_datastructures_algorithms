@@ -44,4 +44,15 @@ describe("Test sorting algorithms", function() {
             expect(Sorting.merge_sort([2, 1])).to.eql([1, 2]);
         });
     });
+
+    describe("Test quick sort", function() {
+        it("should sort the given elements", function() {
+            expect(Sorting.quick_sort(null)).to.eql(null);
+            expect(Sorting.quick_sort([])).to.eql([]);
+            expect(Sorting.quick_sort([1])).to.eql([1]);
+            expect(Sorting.quick_sort([1, 2])).to.eql([1, 2]);
+            expect(Sorting.quick_sort([2, 1])).to.eql([1, 2]);
+            expect(Sorting.quick_sort([2, 1, 5, 3])).to.eql([1, 2, 3, 5]);
+        });
+    });
 });

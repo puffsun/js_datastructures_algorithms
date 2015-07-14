@@ -7,10 +7,6 @@ function swap(ary, i, j) {
 }
 
 function merge_sort_rec(ary) {
-    if (!ary) {
-        return null;
-    }
-
     var len = ary.length,
         mid = Math.floor(len / 2),
         left, right;
@@ -44,6 +40,46 @@ function merge(ary1, ary2) {
         result.push(ary2[i2++]);
     }
     return result;
+}
+
+function quick_sort_rec(ary, left, right) {
+    var index;
+
+    if (ary.length <= 1) {
+        return ary;
+    }
+
+    index = partition(ary, left, right);
+    if (left < index - 1) {
+        quick_sort_rec(ary, left, index - 1);
+    }
+
+    if (index < right) {
+        quick_sort_rec(ary, index + 1, right);
+    }
+    return ary;
+}
+
+function partition(ary, left, right) {
+    var mid = Math.floor((left + right) / 2),
+        pivot = ary[mid],
+        i = left,
+        j = right;
+
+    while (i <= j) {
+        while (ary[i] < pivot) {
+            i++;
+        }
+        while (ary[j] > pivot) {
+            j--;
+        }
+        if (i <= j) {
+            swap(ary, i, j);
+            i++;
+            j--;
+        }
+    }
+    return i;
 }
 
 var Sorting = {
@@ -107,7 +143,17 @@ var Sorting = {
     },
 
     merge_sort: function(ary) {
+        if (!ary) {
+            return null;
+        }
         return merge_sort_rec(ary);
+    },
+
+    quick_sort: function(ary) {
+        if (!ary) {
+            return null;
+        }
+        return quick_sort_rec(ary, 0, ary.length - 1);
     }
 };
 
