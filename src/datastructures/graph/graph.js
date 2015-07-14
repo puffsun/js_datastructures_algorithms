@@ -67,28 +67,29 @@ Graph = (function() {
      */
         if (!this._nodes[id]) {
             this.nodeSize++;
-            return this._nodes[id] = {
+            this._nodes[id] = {
                 _outEdges: {},
                 _inEdges: {}
             };
+            return this._nodes[id];
         }
     };
 
     Graph.prototype.getNode = function(id) {
 
-    /*
-    _Returns:_ the node object. Feel free to attach additional custom properties
-    on it for graph algorithms' needs.
-     */
+        /*
+        _Returns:_ the node object. Feel free to attach additional custom properties
+        on it for graph algorithms' needs.
+         */
         return this._nodes[id];
     };
 
     Graph.prototype.removeNode = function(id) {
 
-    /*
-    _Returns:_ the node object removed, or undefined if it didn't exist in the
-    first place.
-     */
+        /*
+        _Returns:_ the node object removed, or undefined if it didn't exist in the
+        first place.
+         */
         var inEdgeId, nodeToRemove, outEdgeId, ref, ref1;
         nodeToRemove = this._nodes[id];
         if (!nodeToRemove) {
@@ -116,21 +117,21 @@ Graph = (function() {
 
     Graph.prototype.addEdge = function(fromId, toId, weight) {
         var edgeToAdd, fromNode, toNode;
-        if (weight === null) {
+        if (!weight) {
             weight = 1;
         }
 
-    /*
-    `fromId` and `toId` are the node id specified when it was created using
-    `addNode()`. `weight` is optional and defaults to 1. Ignoring it effectively
-    makes this an unweighted graph. Under the hood, `weight` is just a normal
-    property of the edge object.
+        /*
+        `fromId` and `toId` are the node id specified when it was created using
+        `addNode()`. `weight` is optional and defaults to 1. Ignoring it effectively
+        makes this an unweighted graph. Under the hood, `weight` is just a normal
+        property of the edge object.
 
-    _Returns:_ the edge object created. Feel free to attach additional custom
-    properties on it for graph algorithms' needs. **Or undefined** if the nodes
-    of id `fromId` or `toId` aren't found, or if an edge already exists between
-    the two nodes.
-     */
+        _Returns:_ the edge object created. Feel free to attach additional custom
+        properties on it for graph algorithms' needs. **Or undefined** if the nodes
+        of id `fromId` or `toId` aren't found, or if an edge already exists between
+        the two nodes.
+         */
         if (this.getEdge(fromId, toId)) {
             return;
         }
@@ -157,9 +158,7 @@ Graph = (function() {
         var fromNode, toNode;
         fromNode = this._nodes[fromId];
         toNode = this._nodes[toId];
-        if (!fromNode || !toNode) {
-
-        } else {
+        if (fromNode && toNode) {
             return fromNode._outEdges[toId];
         }
     };
@@ -191,7 +190,12 @@ Graph = (function() {
         var fromId, inEdges, ref, toNode;
         toNode = this._nodes[nodeId];
         inEdges = [];
-        ref = toNode !== null ? toNode._inEdges : void 0;
+        if (toNode) {
+            ref = toNode._inEdges;
+        } else {
+            // same as undefined
+            ref = void 0;
+        }
         for (fromId in ref) {
             if (!hasProp.call(ref, fromId)) {
                 continue;
@@ -210,7 +214,12 @@ Graph = (function() {
         var fromNode, outEdges, ref, toId;
         fromNode = this._nodes[nodeId];
         outEdges = [];
-        ref = fromNode !== null ? fromNode._outEdges : void 0;
+
+        if (fromNode) {
+            ref = fromNode._outEdges;
+        } else {
+            ref = 0;
+        }
         for (toId in ref) {
             if (!hasProp.call(ref, toId)) {
                 continue;
@@ -240,7 +249,9 @@ Graph = (function() {
         selfEdge = this.getEdge(nodeId, nodeId);
         for (i = j = 0, ref = inEdges.length; 0 <= ref ? j < ref : j > ref; i = 0 <= ref ? ++j : --j) {
             if (inEdges[i] === selfEdge) {
-                ref1 = [inEdges[inEdges.length - 1], inEdges[i]], inEdges[i] = ref1[0], inEdges[inEdges.length - 1] = ref1[1];
+                ref1 = [inEdges[inEdges.length - 1], inEdges[i]];
+                inEdges[i] = ref1[0];
+                inEdges[inEdges.length - 1] = ref1[1];
                 inEdges.pop();
                 break;
             }
