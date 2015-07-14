@@ -1,5 +1,8 @@
 ## Data Structures and Algorithms with JavaScript
 
+### Introduction
+Computer science data structures and algorithms with plain JavaScript, testing with [Mocha.js](http://mochajs.org/), along with [Chai](http://chaijs.com/) and [Sinon.js](http://sinonjs.org/).
+
 ### Setup
 * Install [Node.js](https://nodejs.org/)
 * Install [Grunt](http://gruntjs.com/)
@@ -22,3 +25,4 @@
     * Selection sort
     * Insertion sort
     * Merge sort
+
