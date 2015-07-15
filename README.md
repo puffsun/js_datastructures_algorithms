@@ -20,10 +20,13 @@ Computer science data structures and algorithms with plain JavaScript, testing w
 * [Graph](https://github.com/puffsun/js_datastructures_algorithms/tree/master/src/datastructures/graph)
 
 ### Algorithms
-* [Sorting](https://github.com/puffsun/js_datastructures_algorithms/tree/master/src/algorithms)
+* [Sorting](https://github.com/puffsun/js_datastructures_algorithms/tree/master/src/algorithms/sorting.js)
     * Bubble sort
     * Selection sort
     * Insertion sort
     * Merge sort
     * Quick sort
+* [Searching](https://github.com/puffsun/js_datastructures_algorithms/blob/master/src/algorithms/searching.js)
+    * Sequential search
+    * Binary search
 
