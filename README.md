@@ -16,6 +16,7 @@ Computer science data structures and algorithms with plain JavaScript, testing w
 * [Linked List](https://github.com/puffsun/js_datastructures_algorithms/tree/master/src/datastructures/list)
 * [Set](https://github.com/puffsun/js_datastructures_algorithms/tree/master/src/datastructures/set)
 * [Hash](https://github.com/puffsun/js_datastructures_algorithms/tree/master/src/datastructures/hash)
+* [Heap](https://github.com/puffsun/js_datastructures_algorithms/tree/master/src/datastructures/heap)
 * [Tree](https://github.com/puffsun/js_datastructures_algorithms/tree/master/src/datastructures/tree)
 * [Graph](https://github.com/puffsun/js_datastructures_algorithms/tree/master/src/datastructures/graph)
 
