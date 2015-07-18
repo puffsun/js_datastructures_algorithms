@@ -88,21 +88,20 @@ Graph.prototype.removeNode = function(id) {
     _Returns:_ the node object removed, or undefined if it didn't exist in the
     first place.
      */
-    var inEdgeId, nodeToRemove, outEdgeId, ref, ref1;
-    nodeToRemove = this._nodes[id];
+    var nodeToRemove = this._nodes[id],
+        outEdgeId, inEdgeId;
+
     if (!nodeToRemove) {
         return;
     } else {
-        ref = nodeToRemove._outEdges;
-        for (outEdgeId in ref) {
-            if (!hasProp.call(ref, outEdgeId)) {
+        for (outEdgeId in nodeToRemove._outEdges) {
+            if (!hasProp.call(nodeToRemove._outEdges, outEdgeId)) {
                 continue;
             }
             this.removeEdge(id, outEdgeId);
         }
-        ref1 = nodeToRemove._inEdges;
-        for (inEdgeId in ref1) {
-            if (!hasProp.call(ref1, inEdgeId)) {
+        for (inEdgeId in nodeToRemove._inEdges) {
+            if (!hasProp.call(nodeToRemove._inEdges, inEdgeId)) {
                 continue;
             }
             this.removeEdge(inEdgeId, id);
@@ -238,24 +237,29 @@ Graph.prototype.getAllEdgesOf = function(nodeId) {
     outgoing or coming. Duplicate edge created by self-pointing nodes are
     removed. Only one copy stays. Empty array if node has no edge.
      */
-    var i, inEdges, j, outEdges, ref, ref1, selfEdge;
-    inEdges = this.getInEdgesOf(nodeId);
-    outEdges = this.getOutEdgesOf(nodeId);
+    var inEdges = this.getInEdgesOf(nodeId),
+        outEdges = this.getOutEdgesOf(nodeId),
+        selfEdge = this.getEdge(nodeId, nodeId),
+        i, len;
+
     if (inEdges.length === 0) {
         return outEdges;
     }
-    selfEdge = this.getEdge(nodeId, nodeId);
-    for (i = j = 0, ref = inEdges.length; 0 <= ref ? j < ref : j > ref; i = 0 <= ref ? ++j : --j) {
+    for (i = 0, len= inEdges.length; i < len; i++) {
         if (inEdges[i] === selfEdge) {
-            ref1 = [inEdges[inEdges.length - 1], inEdges[i]];
-            inEdges[i] = ref1[0];
-            inEdges[inEdges.length - 1] = ref1[1];
+            swap(inEdges[inEdges.length - 1], inEdges[i]);
             inEdges.pop();
             break;
         }
     }
     return inEdges.concat(outEdges);
 };
+
+function swap(a, b) {
+    var tmp = a;
+    a = b;
+    b = tmp;
+}
 
 Graph.prototype.forEachNode = function(operation) {
 
