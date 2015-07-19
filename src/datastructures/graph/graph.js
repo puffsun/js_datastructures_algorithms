@@ -269,13 +269,12 @@ Graph.prototype.forEachNode = function(operation) {
 
     _Returns:_ undefined.
      */
-    var nodeId, nodeObject, ref;
-    ref = this._nodes;
-    for (nodeId in ref) {
-        if (!hasProp.call(ref, nodeId)) {
+    var nodeId, nodeObject;
+    for (nodeId in this._nodes) {
+        if (!hasProp.call(this._nodes, nodeId)) {
             continue;
         }
-        nodeObject = ref[nodeId];
+        nodeObject = this._nodes[nodeId];
         operation(nodeObject, nodeId);
     }
 };
@@ -288,19 +287,17 @@ Graph.prototype.forEachEdge = function(operation) {
 
     _Returns:_ undefined.
      */
-    var edgeObject, nodeId, nodeObject, ref, ref1, toId;
-    ref = this._nodes;
-    for (nodeId in ref) {
-        if (!hasProp.call(ref, nodeId)) {
+    var edgeObject, nodeId, nodeObject, toId;
+    for (nodeId in this._nodes) {
+        if (!hasProp.call(this._nodes, nodeId)) {
             continue;
         }
-        nodeObject = ref[nodeId];
-        ref1 = nodeObject._outEdges;
-        for (toId in ref1) {
-            if (!hasProp.call(ref1, toId)) {
+        nodeObject = this._nodes[nodeId];
+        for (toId in nodeObject._outEdges) {
+            if (!hasProp.call(nodeObject._outEdges, toId)) {
                 continue;
             }
-            edgeObject = ref1[toId];
+            edgeObject = nodeObject._outEdges[toId];
             operation(edgeObject);
         }
     }
