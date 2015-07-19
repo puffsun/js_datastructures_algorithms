@@ -246,7 +246,7 @@ describe("Test Graph", function() {
             expect(graph.getInEdgesOf("6")).to.eql([]);
         });
 
-        return it("should return the in edges", function() {
+        it("should return the in edges", function() {
             addNodesTo(graph2, true);
 
             /*
