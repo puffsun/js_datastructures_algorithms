@@ -92,6 +92,10 @@
     // additional predefined global variables
     "globals"       : {
         "counter"   : true,
-        "Stack"     : true
+        "Stack"     : true,
+        "angular"   : true,
+        "inject"    : true,
+        "sinon"     : true,
+        "expect"    : true
     }
 }
